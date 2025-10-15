@@ -40,13 +40,13 @@ if uploaded_file is not None:
 
             # Imagen original
             with col1:
-                st.image(Image.open(temp_path), caption="🖼️ Imagen original", use_column_width=True)
+                st.image(Image.open(temp_path), caption="🖼️ Imagen original", use_container_width=True)
             
             # Imagen con detecciones
             with col2:
                 if r.boxes is not None and len(r.boxes) > 0:
                     annotated_img = r.plot()
-                    st.image(annotated_img, caption="🧩 Detección", use_column_width=True)
+                    st.image(annotated_img, caption="🧩 Detección", use_container_width=True)
                 else:
                     st.warning("⚠️ No se detectaron plagas en la imagen.")
 
