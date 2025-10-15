@@ -1,0 +1,5 @@
+streamlit==1.33.0
+opencv-python==4.9.0.80
+numpy==1.26.4
+tensorflow==2.15.0
+ultralytics==8.2.47
