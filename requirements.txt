@@ -1,5 +1,12 @@
 # Rangos acotados por versión mayor: reproducible sin quedar congelado en
 # parches de seguridad. El modelo fue entrenado con ultralytics 8.3.x.
+
+# Ruedas de PyTorch para CPU. Sin esta línea, pip instala en Linux la variante
+# con CUDA (varios GB de dependencias de GPU) y el despliegue en Streamlit
+# Community Cloud se queda sin espacio antes de arrancar. La inferencia es en
+# CPU de todas formas.
+--extra-index-url https://download.pytorch.org/whl/cpu
+
 streamlit>=1.40,<2.0
 ultralytics>=8.3.0,<9.0
 torch>=2.2,<3.0
