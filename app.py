@@ -83,11 +83,44 @@ def barra_lateral() -> tuple[float, float]:
         return conf, iou
 
 
+def elegir_imagen() -> tuple[bytes, str] | None:
+    """Imagen a analizar, desde archivo o desde la cámara del dispositivo.
+
+    Devuelve los bytes y un nombre base para los archivos descargables, o None
+    mientras no haya imagen. Se usa un selector en vez de mostrar los dos
+    widgets a la vez para que nunca haya dos imágenes candidatas en pantalla.
+    """
+    origen = st.radio(
+        "¿De dónde viene la imagen?",
+        ("📁 Subir una foto", "📷 Tomar una foto ahora"),
+        horizontal=True,
+    )
+
+    if origen.startswith("📁"):
+        archivo = st.file_uploader(
+            "Imagen del cultivo",
+            type=config.SUPPORTED_FORMATS,
+            help=f"Formatos: {', '.join(config.SUPPORTED_FORMATS).upper()} · "
+            f"Máx. {config.MAX_UPLOAD_MB} MB",
+        )
+        if archivo is None:
+            return None
+        return archivo.getvalue(), archivo.name.rsplit(".", 1)[0]
+
+    st.caption(
+        "El navegador va a pedir permiso para usar la cámara. En el celular "
+        "conviene acercarse al insecto hasta que ocupe buena parte del encuadre."
+    )
+    # camera_input entrega siempre un PNG y no trae nombre de archivo.
+    foto = st.camera_input("Apunte al insecto y tome la foto")
+    return (foto.getvalue(), "captura") if foto is not None else None
+
+
 def estado_inicial() -> None:
     st.info(
-        "Suba una fotografía del cultivo para comenzar. El sistema identifica la "
-        "especie, marca su ubicación en la imagen y entrega una recomendación de "
-        "manejo integrado."
+        "Suba una fotografía del cultivo o tómela con la cámara para comenzar. "
+        "El sistema identifica la especie, marca su ubicación en la imagen y "
+        "entrega una recomendación de manejo integrado."
     )
 
     cols = st.columns(4)
@@ -190,17 +223,13 @@ def main() -> None:
         st.error(f"⚠️ {exc}")
         st.stop()
 
-    archivo = st.file_uploader(
-        "Imagen del cultivo",
-        type=config.SUPPORTED_FORMATS,
-        help=f"Formatos: {', '.join(config.SUPPORTED_FORMATS).upper()} · Máx. {config.MAX_UPLOAD_MB} MB",
-    )
+    entrada = elegir_imagen()
 
-    if archivo is None:
+    if entrada is None:
         estado_inicial()
         return
 
-    imagen_bytes = archivo.getvalue()
+    imagen_bytes, nombre_base = entrada
 
     if len(imagen_bytes) > config.MAX_UPLOAD_MB * 1024 * 1024:
         st.error(f"La imagen supera el límite de {config.MAX_UPLOAD_MB} MB.")
@@ -227,7 +256,7 @@ def main() -> None:
         st.download_button(
             "⬇️ Descargar imagen analizada",
             data=_a_png(resultado.imagen_anotada),
-            file_name=f"analisis_{archivo.name.rsplit('.', 1)[0]}.png",
+            file_name=f"analisis_{nombre_base}.png",
             mime="image/png",
             use_container_width=True,
         )

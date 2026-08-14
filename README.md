@@ -17,6 +17,7 @@ el nivel de riesgo agronómico.
 
 | | |
 |---|---|
+| 📷 **Foto o cámara en vivo** | Se analiza una imagen subida o una tomada en el momento con la cámara del celular. |
 | 🎯 **Detección por individuo** | Localiza cada espécimen con su caja delimitadora y nivel de confianza. |
 | 🌱 **Criterio agronómico** | Clasifica en benéfica, vigilancia o control, en lugar de tratar todo como plaga. |
 | 📋 **Recomendación accionable** | Ficha de impacto y manejo integrado por especie, no un simple nombre. |
@@ -147,6 +148,11 @@ haga fallar el build.
 `packages.txt` es necesario: Ultralytics depende de `opencv-python`, que exige
 `libGL` a nivel de sistema operativo. Sin ese archivo el contenedor arranca pero
 falla al importar el modelo.
+
+Contiene solo `libgl1`. No agregue `libglib2.0-0`: en la imagen Debian 11 de
+Streamlit Cloud arrastra un `libffi7` que no está disponible, y apt aborta la
+instalación completa —incluidas las dependencias de Python— en lugar de omitir
+ese paquete.
 
 **Landing page**: en *Settings → Pages* del repositorio, elija la rama `main` y la
 carpeta `/docs`. La página queda publicada en
