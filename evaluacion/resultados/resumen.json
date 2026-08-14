@@ -1,0 +1,19 @@
+{
+  "modelo": "best6.pt",
+  "imagenes": 546,
+  "conf": 0.3,
+  "iou": 0.5,
+  "imgsz": 640,
+  "aciertos_top1": 455,
+  "exactitud_top1": 0.833,
+  "sin_deteccion": 39,
+  "confianza_media_aciertos": 0.697,
+  "ms_por_imagen": 205.9,
+  "f1_macro": 0.86,
+  "deteccion": {
+    "map50": 0.754,
+    "map50_95": 0.432,
+    "precision": 0.825,
+    "recall": 0.685
+  }
+}

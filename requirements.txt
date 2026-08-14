@@ -1,6 +1,9 @@
-streamlit
-ultralytics
-Pillow
-opencv-python-headless
-torch
-torchvision
+# Rangos acotados por versión mayor: reproducible sin quedar congelado en
+# parches de seguridad. El modelo fue entrenado con ultralytics 8.3.x.
+streamlit>=1.40,<2.0
+ultralytics>=8.3.0,<9.0
+torch>=2.2,<3.0
+torchvision>=0.17,<1.0
+Pillow>=10.0,<12.0
+opencv-python-headless>=4.9,<5.0
+pandas>=2.0,<3.0

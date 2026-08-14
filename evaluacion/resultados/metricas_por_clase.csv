@@ -1,0 +1,13 @@
+clase,especie,imagenes,aciertos,precision,recall,f1,sin_deteccion,confianza_media
+Ants,Hormigas,54,45,1.0,0.833,0.909,3,0.649
+Bees,Abejas,40,35,0.921,0.875,0.897,2,0.72
+Beetles,Escarabajos,41,31,0.574,0.756,0.653,5,0.68
+Caterpillars,Orugas,46,33,0.846,0.717,0.776,6,0.685
+Earthworms,Lombrices de tierra,27,18,0.947,0.667,0.783,6,0.575
+Earwigs,Tijeretas,59,49,0.925,0.831,0.875,5,0.669
+Grasshoppers,Saltamontes,38,35,0.921,0.921,0.921,1,0.703
+Moths,Polillas,47,40,0.93,0.851,0.889,3,0.794
+Slugs,Babosas,46,32,0.865,0.696,0.771,6,0.618
+Snails,Caracoles,44,43,0.956,0.977,0.966,0,0.76
+Wasps,Avispas,46,44,0.978,0.957,0.967,1,0.706
+Weevils,Gorgojos,58,50,0.98,0.862,0.917,1,0.716
