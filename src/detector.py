@@ -59,8 +59,14 @@ def cargar_modelo(ruta: Path | None = None):
         # Import diferido: ultralytics arrastra torch y tarda varios segundos.
         from ultralytics import YOLO
     except ImportError as exc:
+        # Se incluye el error original: en un despliegue lo que falla casi
+        # siempre es una librería del sistema (libGL, que necesita OpenCV), no
+        # un paquete de Python, y el mensaje genérico manda a revisar el lado
+        # equivocado.
         raise ModeloNoDisponibleError(
-            "Faltan dependencias de inferencia. Instálelas con "
+            f"No se pudieron cargar las dependencias de inferencia: {exc}. "
+            "Si falta una librería del sistema, declárela en 'packages.txt'; "
+            "si falta un paquete de Python, instálelo con "
             "`pip install -r requirements.txt`."
         ) from exc
 

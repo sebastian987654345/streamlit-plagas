@@ -94,6 +94,7 @@ streamlit-plagas/
 │   ├── index.html          # Landing page (GitHub Pages)
 │   └── assets/             # Gráficos de la evaluación
 ├── .streamlit/config.toml  # Tema y configuración del servidor
+├── packages.txt            # Librerías del sistema (libGL, para OpenCV)
 └── requirements.txt
 ```
 
@@ -141,7 +142,11 @@ haga fallar el build.
 
 1. Conecte el repositorio en [share.streamlit.io](https://share.streamlit.io).
 2. Archivo principal: `app.py`.
-3. Las dependencias se instalan solas desde `requirements.txt`.
+3. Las dependencias se instalan solas desde `requirements.txt` y `packages.txt`.
+
+`packages.txt` es necesario: Ultralytics depende de `opencv-python`, que exige
+`libGL` a nivel de sistema operativo. Sin ese archivo el contenedor arranca pero
+falla al importar el modelo.
 
 **Landing page**: en *Settings → Pages* del repositorio, elija la rama `main` y la
 carpeta `/docs`. La página queda publicada en
